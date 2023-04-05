@@ -120,9 +120,7 @@ DT.fit(X,y)
 if Dataset == 'Wine':
     dot_data = export_graphviz(DT, out_file=None, feature_names=wine.feature_names,class_names=wine.target_names, filled=True)
 elif Dataset == 'Digits':
-    s=digits.target_names
-    W = np.array(["%i" % w for w in s.reshape(s.size)])
-    dot_data = export_graphviz(DT, out_file=None, feature_names=digits.feature_names,class_names=W, filled=True)
+    dot_data = export_graphviz(DT, out_file=None, feature_names=digits.feature_names,class_names=digits.target_names.astype(str), filled=True)
 elif Dataset == 'Breast Cancer':
     dot_data = export_graphviz(DT, out_file=None, feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
 else:
@@ -143,7 +141,7 @@ for i in range(0,Tree_Number):
     if Dataset == 'Wine':
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=wine.feature_names,class_names=wine.target_names, filled=True)
     elif Dataset == 'Digits':
-        dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=digits.feature_names,class_names=W, filled=True)
+        dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=digits.feature_names,class_names=digits.target_names.astype(str), filled=True)
     elif Dataset == 'Breast Cancer':
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
     else:
