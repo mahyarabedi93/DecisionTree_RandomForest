@@ -109,7 +109,7 @@ DT=DecisionTreeClassifier(criterion=Criterion, splitter=Splitter_DT , max_depth=
     min_samples_leaf=Min_Sample_Leaf, min_weight_fraction_leaf=0.0, max_features=Max_Features,
     random_state=Random_State, max_leaf_nodes=None, min_impurity_decrease=0.0, class_weight=None, ccp_alpha=Complexity)
 
-Tree_Number  = st.sidebar.number_input('Select the number of tree for Random Forest',        min_value=1, max_value=100  ,step=1, value=2, format='%i')
+Tree_Number  = int(st.sidebar.number_input('Select the number of tree for Random Forest',        min_value=1, max_value=100  ,step=1, value=2, format='%i'))
  
 RF= RandomForestClassifier(n_estimators=Tree_Number, criterion=Criterion, max_depth=Max_Depth, min_samples_split=Min_Sample_Split,
     min_samples_leaf=Min_Sample_Leaf, min_weight_fraction_leaf=0.0, max_features=Max_Features, max_leaf_nodes=None,
@@ -120,7 +120,9 @@ DT.fit(X,y)
 if Dataset == 'Wine':
     dot_data = export_graphviz(DT, out_file=None, feature_names=wine.feature_names,class_names=wine.target_names, filled=True)
 elif Dataset == 'Digits':
-    dot_data = export_graphviz(DT, out_file=None, feature_names=digits.feature_names,class_names=digits.target_names, filled=True)
+    s=digits.target_names
+    W = np.array(["%i" % w for w in s.reshape(s.size)])
+    dot_data = export_graphviz(DT, out_file=None, feature_names=digits.feature_names,class_names=W, filled=True)
 elif Dataset == 'Breast Cancer':
     dot_data = export_graphviz(DT, out_file=None, feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
 else:
@@ -141,7 +143,7 @@ for i in range(0,Tree_Number):
     if Dataset == 'Wine':
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=wine.feature_names,class_names=wine.target_names, filled=True)
     elif Dataset == 'Digits':
-        dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=digits.feature_names,class_names=digits.target_names, filled=True)
+        dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=digits.feature_names,class_names=W, filled=True)
     elif Dataset == 'Breast Cancer':
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
     else:
