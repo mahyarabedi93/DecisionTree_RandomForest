@@ -100,7 +100,7 @@ Criterion = st.sidebar.selectbox('Select criterion for both classifier',('gini',
 Max_Depth = st.sidebar.number_input('Select the value for max depth of Tree for both classifier'             , min_value=1, max_value=10000,step=1, value=2, format='%i')
 Min_Sample_Split = int(st.sidebar.number_input('Select the value for minimum sample splitter for both classifier', min_value=1, max_value=100  ,step=1, value=2, format='%i'))
 Min_Sample_Leaf  = int(st.sidebar.number_input('Select the value for minimum sample in leaf for both classifier' , min_value=1, max_value=100  ,step=1, value=1, format='%i'))
-Max_Features = st.sidebar.selectbox('Select method for spliting features for both classifier',('sqrt', 'log2','auto'),index = 0)
+Max_Features = st.sidebar.selectbox('Select method for splitting features for both classifier',('sqrt', 'log2','auto'),index = 0)
 Complexity  = st.sidebar.number_input('Select the value for complexity parameter for both classifier' , min_value=0.0, max_value=100.0  ,step=0.1, value=0.0, format='%f')
 Random_State = st.sidebar.slider('Select a value for the random state for both classifier', 0, 100, value=50, format = '%i')
 Splitter_DT = st.sidebar.selectbox('Select splitter for Decision Tree',('best','random'),index = 0)
