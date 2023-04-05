@@ -100,8 +100,8 @@ Criterion = st.sidebar.selectbox('Select criterion for both classifier',('gini',
 Max_Depth = st.sidebar.number_input('Select the value for max depth of Tree for both classifier'             , min_value=1, max_value=10000,step=1, value=2, format='%i')
 Min_Sample_Split = int(st.sidebar.number_input('Select the value for minimum sample splitter for both classifier', min_value=1, max_value=100  ,step=1, value=2, format='%i'))
 Min_Sample_Leaf  = int(st.sidebar.number_input('Select the value for minimum sample in leaf for both classifier' , min_value=1, max_value=100  ,step=1, value=1, format='%i'))
-Max_Features = st.sidebar.selectbox('Select method for splitting features for both classifier',('sqrt', 'log2','auto'),index = 0)
-Complexity  = st.sidebar.number_input('Select the value for complexity paramter for both classifier' , min_value=0.0, max_value=100.0  ,step=0.1, value=0.0, format='%f')
+Max_Features = st.sidebar.selectbox('Select method for spliting features for both classifier',('sqrt', 'log2','auto'),index = 0)
+Complexity  = st.sidebar.number_input('Select the value for complexity parameter for both classifier' , min_value=0.0, max_value=100.0  ,step=0.1, value=0.0, format='%f')
 Random_State = st.sidebar.slider('Select a value for the random state for both classifier', 0, 100, value=50, format = '%i')
 Splitter_DT = st.sidebar.selectbox('Select splitter for Decision Tree',('best','random'),index = 0)
 
@@ -126,18 +126,22 @@ elif Dataset == 'Breast Cancer':
 else:
     dot_data = export_graphviz(DT, out_file=None, feature_names=iris.feature_names,class_names=iris.target_names, filled=True)
 cols_new[0].graphviz_chart(dot_data)
-# plot_tree(DT, feature_names=wine.feature_names,  class_names=wine.target_names, filled=True)
+
 # Fig=plt.figure(figsize=(50,40))
-# plot_tree(DT)
+# if Dataset == 'Wine':
+    # plot_tree(DT, feature_names=wine.feature_names,  class_names=wine.target_names, filled=True)
+# elif Dataset == 'Digits':
+    # plot_tree(DT, feature_names=digits.feature_names,class_names=digits.target_names.astype(str), filled=True)
+# elif Dataset == 'Breast Cancer':
+    # plot_tree(DT, feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
+# else:
+    # plot_tree(DT, feature_names=iris.feature_names,  class_names=iris.target_names, filled=True)
 # cols_new[0].pyplot(Fig)
 
 RF.fit(X,y)
 
 for i in range(0,Tree_Number):
-    # Fig=plt.figure(figsize=(50,40))
     cols_new[1].write(str(i+1)+"th Tree in the forest")
-    # plot_tree(RF.estimators_[i])
-    # cols_new[1].pyplot(Fig)
     if Dataset == 'Wine':
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=wine.feature_names,class_names=wine.target_names, filled=True)
     elif Dataset == 'Digits':
@@ -147,12 +151,17 @@ for i in range(0,Tree_Number):
     else:
         dot_data = export_graphviz(RF.estimators_[i], out_file=None, feature_names=iris.feature_names,class_names=iris.target_names, filled=True)
     cols_new[1].graphviz_chart(dot_data)
-
-# DOT data
-# Fig=plt.figure(figsize=(50,40))
-# plot_tree(RF.estimators_[Tree_Visualization-1])
-# plot_tree(DT, feature_names=wine.feature_names,  class_names=wine.target_names, filled=True)
-# cols_new[1].pyplot(Fig)
+    
+    # Fig=plt.figure(figsize=(50,40))
+    # if Dataset == 'Wine':
+        # plot_tree(RF.estimators_[i], feature_names=wine.feature_names,  class_names=wine.target_names, filled=True)
+    # elif Dataset == 'Digits':
+        # plot_tree(RF.estimators_[i], feature_names=digits.feature_names,class_names=digits.target_names.astype(str), filled=True)
+    # elif Dataset == 'Breast Cancer':
+        # plot_tree(RF.estimators_[i], feature_names=breast_cancer.feature_names,class_names=breast_cancer.target_names, filled=True)
+    # else:
+        # plot_tree(RF.estimators_[i], feature_names=iris.feature_names,  class_names=iris.target_names, filled=True)
+    # cols_new[1].pyplot(Fig)
 ####################################################################################################################################################################
 st.markdown('<p class="font_header">References: </p>', unsafe_allow_html=True)
 st.markdown('<p class="font_text">1) Buitinck, Lars, Gilles Louppe, Mathieu Blondel, Fabian Pedregosa, Andreas Mueller, Olivier Grisel, Vlad Niculae et al. "API design for machine learning software: experiences from the scikit-learn project." arXiv preprint arXiv:1309.0238 (2013). </p>', unsafe_allow_html=True)
